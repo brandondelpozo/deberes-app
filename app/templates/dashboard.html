@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <title>Deberes App</title>
+
+    <link href=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css rel=stylesheet>
+    <link href=https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/css/dataTables.bootstrap4.min.css rel=stylesheet>
+
+    <!--HTMX-->
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+
+    <style>
+        body{
+            padding: 20px;
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        tr.htmx-swapping td {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        td, th {
+            border: 1px solid #383737;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h4>Hola has iniciado sesión.</h4>
+    <a href="{{url_for('logout')}}">Presiona aquí para cerrar sesión</a>
+    <h1>Lista de Deberes</h1>
+    <form hx-post="/submit" hx-swap="beforeend" hx-target="#new-task" class="mb-4">
+        <input type="text" placeholder="Descripcion de Deber" name="title" class="form-control mb-3" />
+        <input type="text" placeholder="Responsable de Deber, por ejemplo 'George'" name="author" class="form-control mb-3" />
+        <input type="text" placeholder="Estado de deber, elegir entre 'Por Hacer', 'Haciendo', 'Terminado'" name="state" class="form-control mb-3" />
+        <input type="text" placeholder="Prioridad, elegir un numero del 1 al 10, donde 1 es mas importante" name="priority" class="form-control mb-3" />
+        <input type="text" placeholder="Fecha limite, en formaro YYYY-MM-DD" name="deadline" class="form-control mb-3" />
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    <table cellspacing=0 class="table table-bordered table-hover table-inverse table-striped"id=example width=100%>
+        <thead>
+            <tr>
+                <th>Descripcion de Deber
+                <th>Responsable de Deber
+                <th>Estado de deber
+                <th>Prioridad
+                <th>Fecha limite
+                <th>
+                <th>
+        <tfoot>
+            <tr>
+                <th>Descripcion de Deber
+                <th>Responsable de Deber
+                <th>Estado de deber
+                <th>Prioridad
+                <th>Fecha limite
+                <th>
+                
+        <tbody id="new-task" hx-target="closest tr" hx-swap="outerHTML swap:0.5s">
+            {%for task in tasks%}
+            <tr>
+                <td>{{task.Task.title}}
+                <td>{{task.Author.name}}
+                <td>{{task.Task.state}}
+                <td>{{task.Task.priority}}
+                <td>{{task.Task.deadline.date()}}
+                <td>
+                    <button class="btn btn-primary" 
+                        hx-get="/get-edit-form/{{task.Task.task_id}}">
+                        Editar Deber
+                    </button>
+                <td>
+                    <button hx-delete="/delete/{{task.Task.task_id}}" class="btn btn-primary">Borrar</button>
+            {%endfor%}
+    </table>
+                
+    </div>
+    
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+            });
+    </script>-->
+</body>
+</html>
+
