@@ -1,3 +1,5 @@
+import sqlite3
+
 from flask import render_template, url_for, redirect, request, jsonify
 from flask_login import login_user, LoginManager, login_required, logout_user, current_user
 from app.models import User, LoginForm, RegisterForm, db, Author, Task
